@@ -1,0 +1,978 @@
+/* Jesryl Comeling | Portfolio styles */
+
+/* ==========================================================
+   COLORS, FONTS & THEME  (change the colors here)
+   ========================================================== */
+:root {
+  --paper: #ececec;
+  --ink: #111214;
+  --mute: #5f6168;
+  --line: rgba(17,18,20,.85);
+  --hair: rgba(17,18,20,.22);
+  --dk: #0b0c0f;
+  --dki: #eee;
+  --red: #b3203a;
+  --d: "Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --b: Newsreader,Georgia,serif;
+  --j: "Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top,0px);
+  padding-bottom: env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131418;
+    --ink: #ececec;
+    --mute: #9a9ca5;
+    --line: rgba(236,236,236,.8);
+    --hair: rgba(236,236,236,.2);
+    --dk: #050507;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #131418;
+  --ink: #ececec;
+  --mute: #9a9ca5;
+  --line: rgba(236,236,236,.8);
+  --hair: rgba(236,236,236,.2);
+  --dk: #050507;
+  color-scheme: dark;
+}
+
+/* ==========================================================
+   BASE STYLES
+   ========================================================== */
+*,*::before,*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(60px + env(safe-area-inset-top,0px));
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.08rem/1.65 var(--b);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top,0px);
+  background: var(--paper);
+  z-index: 60;
+}
+
+h1,h2,h3,p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+i {
+  font-family: var(--d);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ==========================================================
+   SHARED: small labels & big headings
+   ========================================================== */
+.tag {
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.tag::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: currentColor;
+}
+
+h2 {
+  font: 400 clamp(2.5rem,7.5vw,5.8rem)/1 var(--d);
+  letter-spacing: -.01em;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.1s cubic-bezier(.2,.8,.2,1);
+}
+
+h2.in {
+  clip-path: inset(0 0 -20% 0);
+}
+
+.sec {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 120px 4vw 40px;
+}
+
+/* ==========================================================
+   NAVIGATION BAR
+   ========================================================== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(14px + env(safe-area-inset-top,0px)) 3vw 14px;
+  background: color-mix(in srgb,var(--paper) 80%,transparent);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font: italic 1.5rem var(--d);
+}
+
+.links {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+  font-size: .88rem;
+}
+
+.links a {
+  position: relative;
+  padding: 2px 0;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s;
+}
+
+.links a:hover::after,.links a.on::after {
+  transform: scaleX(1);
+}
+
+#theme {
+  border: 1px solid var(--hair);
+  background: none;
+  color: var(--ink);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: .95rem;
+}
+
+/* ==========================================================
+   LOADING SCREEN
+   ========================================================== */
+#load {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0b0c0f;
+  color: #eee;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  transition: opacity .9s .1s,visibility 0s 1s;
+}
+
+#load b {
+  font: 500 clamp(2.4rem,9vw,5rem)/1 var(--j);
+  letter-spacing: .12em;
+  animation: fin 1.4s both;
+}
+
+#load small {
+  display: block;
+  margin-top: 18px;
+  font-size: .62rem;
+  letter-spacing: .3em;
+  opacity: .7;
+  border-top: 1px solid #555;
+  padding-top: 10px;
+}
+
+body.go #load {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes fin {
+  from {
+    opacity: 0;
+    letter-spacing: .5em;
+  }
+}
+
+/* ==========================================================
+   HERO / ENTRANCE  (the .hero-photo rule is your picture)
+   ========================================================== */
+.hero {
+  padding: calc(70px + env(safe-area-inset-top,0px)) 2vw 0;
+  min-height: 100svh;
+}
+
+.frame {
+  border: 1px solid var(--line);
+  min-height: calc(100svh - 96px);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  padding: 22px 2.4vw 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.kata {
+  font: 500 clamp(1.4rem,3.4vw,2.4rem) var(--j);
+  letter-spacing: .08em;
+}
+
+.note {
+  font: italic .95rem var(--d);
+  text-align: right;
+  color: var(--mute);
+}
+
+.badge {
+  width: clamp(150px,20vw,260px);
+  justify-self: end;
+  align-self: center;
+  overflow: visible;
+}
+
+.badge text {
+  font: 12px var(--b);
+  fill: var(--ink);
+  letter-spacing: 2px;
+}
+
+.badge .bd {
+  font: italic 26px var(--d);
+  letter-spacing: 0;
+}
+
+.spin {
+  transform-origin: 100px 100px;
+  animation: rot 18s linear infinite;
+}
+
+@keyframes rot {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+h1 {
+  font: 400 clamp(4.4rem,19vw,17rem)/.82 var(--d);
+  letter-spacing: -.025em;
+  position: relative;
+}
+
+.ln {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .06em;
+}
+
+.ch {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+body.go .ch {
+  animation: up 1s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: calc(var(--i)*80ms + 250ms);
+}
+
+@keyframes up {
+  to {
+    transform: none;
+  }
+}
+
+.sub {
+  position: absolute;
+  right: 1vw;
+  bottom: -.06em;
+  font-size: clamp(1.6rem,5.4vw,4.4rem);
+  color: var(--mute);
+  opacity: 0;
+  letter-spacing: 0;
+}
+
+body.go .sub {
+  animation: fade 1s 1.1s forwards;
+}
+
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
+
+.bot {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 30px;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.bot i {
+  font-size: 1.15rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.bot div {
+  max-width: 300px;
+}
+
+.bot div:last-child {
+  text-align: right;
+}
+
+.hero-photo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 94%;
+  max-width: 90%;
+  object-fit: contain;
+  object-position: bottom;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,.25));
+}
+
+body.go .hero-photo {
+  animation: fade 1.2s .9s forwards;
+}
+
+.top,.bot {
+  position: relative;
+  z-index: 3;
+}
+
+/* ==========================================================
+   TILTED SCROLLING RIBBON
+   ========================================================== */
+.ribbon {
+  background: #0b0c0f;
+  color: #eee;
+  transform: rotate(-1.8deg);
+  margin: -26px -3vw 0;
+  overflow: hidden;
+  padding: 14px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: mq 26s linear infinite;
+  font: italic clamp(1.2rem,2.6vw,1.9rem) var(--d);
+  white-space: nowrap;
+}
+
+.track span {
+  padding: 0 22px;
+}
+
+.track em {
+  font-style: normal;
+  font-family: var(--b);
+}
+
+@keyframes mq {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================
+   01 PROFILE  (the .pf-img rule is your profile picture)
+   ========================================================== */
+.prof {
+  display: grid;
+  grid-template-columns: minmax(220px,.8fr) 1.2fr;
+  gap: 5vw;
+  align-items: start;
+}
+
+.portrait {
+  margin: 0;
+  aspect-ratio: 3/4;
+  background: #0b0c0f;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.portrait .jc {
+  font: italic clamp(6rem,15vw,11rem)/1 var(--d);
+  align-self: center;
+  margin: auto;
+}
+
+.pf-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.portrait small {
+  position: relative;
+  z-index: 2;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+}
+
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,transparent 40%,rgba(255,255,255,.14) 50%,transparent 60%);
+  transform: translateX(-120%);
+  animation: sh 5s 2s infinite;
+}
+
+@keyframes sh {
+  40%,100% {
+    transform: translateX(120%);
+  }
+}
+
+.vk {
+  writing-mode: vertical-rl;
+  font: 500 1.4rem var(--j);
+  float: right;
+  margin-left: 14px;
+  letter-spacing: .1em;
+}
+
+.prof p {
+  color: var(--mute);
+  margin: 26px 0;
+  max-width: 56ch;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 30px;
+  margin: 0;
+}
+
+dl div {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+dt {
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+dd {
+  margin: 2px 0 0;
+  font: 600 1.05rem var(--d);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+}
+
+.stat {
+  flex: 1 1 200px;
+  padding: 20px 0;
+}
+
+.stat b {
+  font: 400 clamp(3rem,7vw,5rem)/1 var(--d);
+  display: block;
+}
+
+.stat span {
+  color: var(--mute);
+  font-size: .92rem;
+}
+
+/* ==========================================================
+   02 EXPERIENCE and 05 WORKS  (list rows)
+   ========================================================== */
+.row {
+  display: grid;
+  grid-template-columns: 50px 1.1fr 1.3fr 46px;
+  gap: 24px;
+  align-items: center;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--hair);
+  position: relative;
+}
+
+.row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s cubic-bezier(.2,.8,.2,1);
+}
+
+.row.in::after {
+  transform: scaleX(1);
+}
+
+.row small {
+  font-size: .66rem;
+  color: var(--mute);
+  letter-spacing: .1em;
+}
+
+.row h3 {
+  font: 400 clamp(1.7rem,3.8vw,3rem)/1.05 var(--d);
+  transition: padding .4s;
+}
+
+.row:hover h3 {
+  font-style: italic;
+  padding-left: 16px;
+}
+
+.row .when {
+  color: var(--red);
+  font-size: .88rem;
+  margin-bottom: 6px;
+}
+
+.row ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: .92rem;
+  color: var(--mute);
+}
+
+.row p {
+  font-size: .95rem;
+  color: var(--mute);
+}
+
+.arrow {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  transition: .35s;
+}
+
+.row:hover .arrow {
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotate(-45deg);
+}
+
+.tg {
+  display: inline-block;
+  font-size: .8rem;
+  border: 1px solid var(--hair);
+  padding: 1px 12px;
+  border-radius: 99px;
+  margin: 8px 6px 0 0;
+}
+
+/* ==========================================================
+   03 QUOTE SECTION
+   ========================================================== */
+.dkS {
+  background: var(--dk);
+  color: var(--dki);
+  margin-top: 90px;
+  padding: 130px 6vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.dkS .tag {
+  color: #999;
+}
+
+.q {
+  font: italic clamp(2rem,6vw,4.8rem)/1.15 var(--d);
+  max-width: 20ch;
+}
+
+.q span {
+  opacity: .18;
+  transition: opacity .5s;
+  display: inline-block;
+  margin-right: .25em;
+}
+
+.q span.on {
+  opacity: 1;
+}
+
+.dkS small {
+  margin-top: 30px;
+  color: #aaa;
+  font: italic 1.1rem var(--d);
+}
+
+/* ==========================================================
+   04 TOOLKIT  (horizontal cards)
+   ========================================================== */
+.hint {
+  font: italic .95rem var(--d);
+  color: var(--mute);
+  margin: 18px 0 28px;
+  text-align: right;
+}
+
+.g {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 0 4vw 34px;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.g::-webkit-scrollbar {
+  display: none;
+}
+
+.gc {
+  flex: 0 0 clamp(220px,24vw,300px);
+  aspect-ratio: 3/4;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform .5s;
+}
+
+.gc:hover {
+  transform: translateY(-10px);
+}
+
+.gc small {
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  opacity: .8;
+}
+
+.gc b {
+  font: 400 clamp(2.4rem,4.4vw,3.6rem)/1 var(--d);
+}
+
+.k1 {
+  background: #0b0c0f;
+  color: #eee;
+}
+
+.k2 {
+  background: #d8dce4;
+  color: #111;
+}
+
+.k3 {
+  background: var(--red);
+  color: #fff;
+}
+
+.k4 {
+  border: 1px solid var(--line);
+}
+
+.gc .vt {
+  writing-mode: vertical-rl;
+  font: 500 3.6rem var(--j);
+  align-self: flex-end;
+  letter-spacing: .1em;
+}
+
+.pw {
+  padding: 0 4vw;
+}
+
+/* ==========================================================
+   CUSTOM CURSOR & HOVER PREVIEW CARD
+   ========================================================== */
+#pv {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 70;
+  pointer-events: none;
+  width: 150px;
+  aspect-ratio: 3/4;
+}
+
+#pvi {
+  width: 100%;
+  height: 100%;
+  background: #0b0c0f;
+  color: #eee;
+  display: grid;
+  place-content: center;
+  font: italic 3.4rem var(--d);
+  transform: scale(0) rotate(-8deg);
+  transition: transform .45s cubic-bezier(.2,.9,.3,1.2);
+}
+
+#pvi.on {
+  transform: scale(1) rotate(-3deg);
+}
+
+#cur {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  z-index: 90;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transition: width .3s,height .3s,background .3s;
+}
+
+#cur.big {
+  width: 56px;
+  height: 56px;
+  background: #fff;
+}
+
+/* ==========================================================
+   06 CONTACT / FOOTER
+   ========================================================== */
+#contact {
+  background: var(--dk);
+  color: var(--dki);
+  margin-top: 100px;
+  padding: 110px 3vw 30px;
+  overflow: hidden;
+}
+
+#contact h2 {
+  font-size: clamp(2.4rem,7vw,5.4rem);
+  max-width: 15ch;
+}
+
+#contact .lead {
+  color: #aaa;
+  max-width: 52ch;
+  margin: 24px 0 60px;
+}
+
+.cl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+  border-top: 1px solid #333;
+  border-left: 1px solid #333;
+}
+
+.cl a {
+  padding: 22px 18px 24px;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+  position: relative;
+  background: linear-gradient(#eee,#eee) left/0% 100% no-repeat;
+  transition: background-size .5s cubic-bezier(.2,.8,.2,1),color .4s;
+}
+
+.cl a:hover {
+  background-size: 100% 100%;
+  color: #111;
+}
+
+.cl small {
+  display: block;
+  font-size: .66rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+.cl b {
+  display: block;
+  font: 400 1.5rem var(--d);
+  margin: 6px 0 2px;
+}
+
+.cl span {
+  font-size: .88rem;
+  opacity: .75;
+  word-break: break-all;
+}
+
+.cl em {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-style: normal;
+}
+
+.cb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34px 0;
+  font: italic 1.05rem var(--d);
+  color: #aaa;
+}
+
+.up {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  color: #eee;
+}
+
+.mark {
+  font: 400 21vw/.8 var(--d);
+  letter-spacing: -.03em;
+  white-space: nowrap;
+  text-align: center;
+  margin: 10px 0 18px;
+}
+
+.copy {
+  text-align: center;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  color: #777;
+  padding-bottom: 10px;
+}
+
+/* ==========================================================
+   ACCESSIBILITY & RESPONSIVE (mobile)
+   ========================================================== */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+@media (max-width:760px) {
+  .hero-photo {
+    height: 62%;
+  }
+  .prof {
+    grid-template-columns: 1fr;
+  }
+  .portrait {
+    aspect-ratio: 4/3;
+  }
+  .row {
+    grid-template-columns: 1fr 44px;
+    gap: 10px;
+  }
+  .row>small {
+    display: none;
+  }
+  .links a:not(:last-of-type) {
+    display: none;
+  }
+  .links {
+    gap: 14px;
+  }
+  .bot {
+    flex-direction: column;
+  }
+  .bot div:last-child {
+    text-align: left;
+  }
+  .sub {
+    position: static;
+    display: block;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation: none!important;
+    transition: none!important;
+  }
+  .ch,.sub,.hero-photo {
+    transform: none;
+    opacity: 1;
+  }
+  .hero-photo {
+    transform: translateX(-50%);
+  }
+  h2 {
+    clip-path: none;
+  }
+}
