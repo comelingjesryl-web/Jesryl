@@ -1006,6 +1006,11 @@ dd {
    ========================================================================== */
 
 /* --- Bootstrap clashes: .row .badge .mark .container --- */
+/* ==========================================================================
+   17. RESPONSIVE
+   ========================================================================== */
+
+/* --- Bootstrap clashes: .row .badge .mark .container --- */
 .sec .container { max-width: none; padding: 0; }
 .row { margin: 0; --bs-gutter-x: 0; --bs-gutter-y: 0; }
 .row > * { padding: 0; width: auto; max-width: none; margin-top: 0; }
@@ -1119,7 +1124,6 @@ dd {
   .vk { font-size: 1.1rem; }
   .copy { letter-spacing: .06em; }
 }
-
 
 /* ==========================================================================
    18. REDUCED MOTION

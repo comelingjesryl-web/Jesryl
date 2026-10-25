@@ -180,7 +180,7 @@
     }
   });
 
-  var nav = document.querySelector('nav');
+    var nav = document.querySelector('nav');
   var mb = document.getElementById('menu');
 
   function closeMenu() {
@@ -194,6 +194,10 @@
     mb.textContent = o ? '✕' : '☰';
     mb.setAttribute('aria-expanded', o);
   };
+
+  document.querySelectorAll('.links a').forEach(function (a) {
+    a.addEventListener('click', closeMenu);
+  });
 
   document.querySelectorAll('.links a').forEach(function (a) {
     a.addEventListener('click', closeMenu);
