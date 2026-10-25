@@ -877,7 +877,109 @@ dd {
   background: #fff;
 }
 
+/* ==========================================================================
+   PROJECT POPUP
+   ========================================================================== */
+.pvr { cursor: pointer; }
 
+#pj {
+  position: fixed;
+  inset: 0;
+  z-index: 80;                         /* above nav (50) and preview (70), below cursor (90) */
+  display: grid;
+  place-items: center;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 4vw calc(20px + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--paper) 45%, transparent);  /* transparent overlay */
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s, visibility 0s .4s;
+}
+
+#pj.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .4s;
+}
+
+.pj-card {
+  position: relative;
+  width: min(920px, 100%);
+  max-height: 88svh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  backdrop-filter: blur(6px);
+  transform: translateY(24px) scale(.98);
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+#pj.open .pj-card { transform: none; }
+
+.pj-x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.pj-img {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  padding: 24px;
+  border-right: 1px solid var(--hair);
+}
+
+.pj-img img {
+  width: 100%;
+  max-height: 60svh;
+  object-fit: contain;                 /* keeps the full screenshot visible */
+}
+
+.pj-info { padding: 36px 30px; align-self: center; }
+
+.pj-info small {
+  font-size: .66rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.pj-info h3 {
+  font: 400 clamp(1.7rem, 3.4vw, 2.6rem)/1.1 var(--d);
+  margin: 8px 0 16px;
+}
+
+.pj-info p { color: var(--mute); font-size: .98rem; }
+
+#pj-g { margin: 14px 0 22px; }
+
+.pj-link {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 8px 20px;
+  font-size: .88rem;
+}
+
+.pj-link:hover { background: var(--ink); color: var(--paper); }
+
+@media (max-width: 760px) {
+  .pj-card { grid-template-columns: 1fr; }
+  .pj-img { border-right: 0; border-bottom: 1px solid var(--hair); min-height: 0; padding: 48px 16px 16px; }
+  .pj-img img { max-height: 36svh; }
+  .pj-info { padding: 24px 20px 28px; }
+}
 /* ==========================================================================
    15. CONTACT & FOOTER
    ========================================================================== */
